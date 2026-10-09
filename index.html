@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>FlowGuard | Real-Time Threat Monitor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">F</div>
+        <div><strong>FlowGuard</strong><span>SECURITY INTELLIGENCE</span></div>
+      </div>
+      <nav aria-label="Main navigation">
+        <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+        <a class="nav-link" href="#activity"><span>≋</span> Live activity</a>
+        <a class="nav-link" href="#manifest"><span>▤</span> Record manifest</a>
+        <a class="nav-link" href="#reports"><span>◷</span> Reports</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="system-status"><span class="pulse"></span><div><b>Monitoring active</b><small>Stream connection healthy</small></div></div>
+        <p class="sidebar-note">Prototype interface · Demo data only</p>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">SECURITY OPERATIONS / OVERVIEW</p>
+          <h1>Real-time threat monitor</h1>
+          <p class="subheading">Spot suspicious record changes while they happen.</p>
+        </div>
+        <div class="top-actions">
+          <span class="demo-tag"><span class="pulse"></span> DEMO STREAM</span>
+          <button id="simulateBtn" class="primary-button">＋ Simulate event</button>
+        </div>
+      </header>
+
+      <section class="stats-grid" aria-label="Security metrics">
+        <article class="stat-card">
+          <div class="stat-label">Events processed <span class="stat-icon blue">↯</span></div>
+          <div class="stat-value" id="eventsProcessed">12,480</div>
+          <div class="stat-foot"><span class="positive">Live demo</span> · Incoming records</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Suspicious events <span class="stat-icon orange">⚑</span></div>
+          <div class="stat-value" id="suspiciousCount">08</div>
+          <div class="stat-foot"><span class="warning-text">Needs review</span> · Risk-scored signals</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">High-risk alerts <span class="stat-icon red">!</span></div>
+          <div class="stat-value" id="highRiskCount">03</div>
+          <div class="stat-foot">Prioritized for investigation</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-label">Stream health <span class="stat-icon green">⌁</span></div>
+          <div class="stat-value">Healthy</div>
+          <div class="stat-foot"><span class="positive">● Connected</span> · Simulated stream</div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel activity-panel" id="activity">
+          <div class="panel-heading">
+            <div><h2>Live suspicious activity</h2><p>Illustrative events generated in your browser</p></div>
+            <div class="heading-actions">
+              <select id="severityFilter" aria-label="Filter by severity">
+                <option value="all">All severities</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+              <button class="ghost-button" id="clearBtn">Clear</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>EVENT</th><th>RECORD</th><th>DETECTION SIGNAL</th><th>RISK</th><th>TIME</th></tr></thead>
+              <tbody id="eventsTable"></tbody>
+            </table>
+          </div>
+          <div class="panel-footer"><span class="pulse"></span> Auto-refresh simulation is ready <span class="footer-right" id="eventCountLabel">8 events shown</span></div>
+        </article>
+
+        <article class="panel risk-panel">
+          <div class="panel-heading"><div><h2>Detection overview</h2><p>How demo signals are categorized</p></div></div>
+          <div class="risk-summary">
+            <div class="donut" aria-label="Illustrative event distribution"><div><strong>08</strong><small>Signals</small></div></div>
+            <div class="legend">
+              <div><i class="dot high"></i><span>High risk</span><b id="legendHigh">3</b></div>
+              <div><i class="dot medium"></i><span>Medium risk</span><b id="legendMedium">3</b></div>
+              <div><i class="dot low"></i><span>Low risk</span><b id="legendLow">2</b></div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <h3 class="mini-heading">Detection layers</h3>
+          <div class="layer"><div class="layer-symbol">01</div><div><b>Rule-based checks</b><small>Known suspicious patterns</small></div><span class="layer-state">ON</span></div>
+          <div class="layer"><div class="layer-symbol">02</div><div><b>Behavior analysis</b><small>Unexpected activity changes</small></div><span class="layer-state">ON</span></div>
+          <div class="layer"><div class="layer-symbol">03</div><div><b>Novelty signals</b><small>Unusual, previously unseen patterns</small></div><span class="layer-state">DEMO</span></div>
+          <p class="method-note">Risk labels are illustrative. This prototype does not connect to a production data stream or validate real attacks.</p>
+        </article>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel" id="manifest">
+          <div class="panel-heading"><div><h2>Live record manifest</h2><p>Recent record changes in the demo stream</p></div><span class="small-badge">LATEST CHANGES</span></div>
+          <div class="manifest-list" id="manifestList">
+            <div class="manifest-row"><span class="manifest-status changed">↻</span><div><b>Customer profile · REC-2048</b><small>Field changed: billing address</small></div><time>14:32:08</time></div>
+            <div class="manifest-row"><span class="manifest-status checked">✓</span><div><b>Invoice record · REC-2047</b><small>Integrity check passed</small></div><time>14:31:54</time></div>
+            <div class="manifest-row"><span class="manifest-status flagged">!</span><div><b>Access record · REC-2046</b><small>Unusual permission update</small></div><time>14:31:41</time></div>
+          </div>
+        </article>
+        <article class="panel report-panel" id="reports">
+          <div class="panel-heading"><div><h2>Suspicious activity report</h2><p>Quick summary for investigation</p></div><span class="report-icon">▤</span></div>
+          <div class="report-highlight"><span class="warning-text">ATTENTION REQUIRED</span><strong id="reportHeadline">3 high-risk signals detected</strong><p id="reportText">Review unusual permission changes and repeated updates before taking action.</p></div>
+          <button class="secondary-button" id="downloadReport">Download demo report (.txt) <span>↓</span></button>
+        </article>
+      </section>
+      <footer class="page-footer"><span>FlowGuard · CodeX</span><span>Hackathon concept prototype · Demo values only</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
